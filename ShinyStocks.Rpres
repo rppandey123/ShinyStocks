@@ -10,8 +10,9 @@ This Shiny Application helps to visualize Stock price
 and trading volume using 'quantmod' package.
 
 - 'quntmod' package
-- Visualizing 'AAPL' stock for past 30 days
-- Analyzing 'AAPL' stock for past 30 days
+- Deployment of ShinyStocks
+- Visualizing 'AAPL' stock 
+- Analyzing 'AAPL' stock
 - Determining 'APPL' price direction 
 - Conclusion
 
@@ -26,6 +27,14 @@ and cleanly explore and build trading models.'
 ```{r, eval=FALSE}
 install.packages('quntmod')
 ```
+
+Deployment of ShinyStocks
+========================================================
+- Could not use shyniapps.io due to it's lack of support for packages on 'R-Forge' repository
+- 'zoo' is a dependency of 'quantmod', and it is on 'R-Forge' repository
+- Created and configured Shiny Server on Amazon AWS EC2 Linux instance
+- Used 'Ubuntu With R and Shiny (ami-5fe69f6f)' AMI to simplify the setup
+- http://ec2-54-149-56-170.us-west-2.compute.amazonaws.com:3838/ShinyStocks/
 
 Visualizing 'AAPL' Stock 
 ========================================================
@@ -64,6 +73,6 @@ Conclusion
 - Need to take into account Stock splits (Adjusted Price) to determine correct average
 - Latest price minus Adjusted Mean seems to predict historic direction of the stock price movement for 'APPL'
 - It is unclear how the size of the period impacts the historic prediction
+- Moving Average Convergence Divergence (MACD) is probably a better indicator of direction of a Stock price.
+   - Detail on MACD: http://en.wikipedia.org/wiki/MACD 
 - 'Past performance is not an indicator of future success'
-
-
