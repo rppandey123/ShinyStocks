@@ -1,0 +1,69 @@
+Shiny Stocks
+========================================================
+author: Ruslan Kharitonov
+date: January 24, 2015
+
+Overview
+========================================================
+
+This Shiny Application helps to visualize Stock price 
+and trading volume using 'quantmod' package.
+
+- 'quntmod' package
+- Visualizing 'AAPL' stock for past 30 days
+- Analyzing 'AAPL' stock for past 30 days
+- Determining 'APPL' price direction 
+- Conclusion
+
+'quntmod' package
+========================================================
+- It is 'A rapid prototyping environment, 
+where quant traders can quickly 
+and cleanly explore and build trading models.'
+- More details on http://www.quantmod.com/
+- Used 'quntmod' in this project to simplify downloading and visualizing stock data.
+- Installation of 'quntmod' package
+```{r, eval=FALSE}
+install.packages('quntmod')
+```
+
+Visualizing 'AAPL' Stock 
+========================================================
+- The Shine Stocks can be used to visual and analyze stocks
+- Change 'Date range' will be reactive - recalculate the chart and other measures
+- Example chart shows volatility of 'APPL' over 30 days
+
+```{r, echo=FALSE}
+library('quantmod')
+data <- getSymbols('AAPL', 
+                  from = '2014-11-24',
+                  to = '2015-01-24',
+                  auto.assign=FALSE)
+
+   chartSeries(data, 
+           theme = chartTheme("white"),
+           TA = NULL
+    )
+```
+
+Determining 'APPL' price direction  
+========================================================
+- Determining price by comparing average (mean) 
+to the latest price ($112.98 per share).
+- Will use the Adjusted close daily price (Ad)
+- Price Direction Hypothesis: If latest price minus Adjusted Mean of a period is positive then direction is **Up**, otherwise it is **Down**.
+   - ('2015-01-22' to '2015-01-24') Adj Mean: $112.69 **Up**
+   - ('2015-01-19' to '2015-01-24') Adj Mean: $110.91 **Up**
+   - ('2014-11-24' to '2015-01-24') Adj Mean: $111.86 **Up**
+   - ('2014-01-24' to '2015-01-24') Adj Mean: $93.47 **Up**
+   - ('2010-01-24' to '2015-01-24') Adj Mean: $64.79 **Up**
+
+Conclusion 
+========================================================
+- chartSeries() can only be used with a period of 3 or more days, otherwise it produced an error.
+- Need to take into account Stock splits (Adjusted Price) to determine correct average
+- Latest price minus Adjusted Mean seems to predict historic direction of the stock price movement for 'APPL'
+- It is unclear how the size of the period impacts the historic prediction
+- 'Past performance is not an indicator of future success'
+
+
